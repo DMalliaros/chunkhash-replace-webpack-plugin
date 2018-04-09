@@ -8,9 +8,9 @@
     "webpack chunkhash replace",
     "webpack replace script reference"
   ],
-  "homepage": "https://github.com/giemch/chunkhash-replace-webpack-plugin",
+  "homepage": "https://github.com/DMalliaros/chunkhash-replace-webpack-plugin",
   "main": "index.js",
-  "author": "Joey Eng",
+  "author": "D. Malliaros",
   "license": "ISC",
   "scripts": {
     "test": "mocha",
@@ -24,6 +24,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/giemch/chunkhash-replace-webpack-plugin.git"
+    "url": "git+https://github.com/DMalliaros/chunkhash-replace-webpack-plugin.git"
   }
 }
