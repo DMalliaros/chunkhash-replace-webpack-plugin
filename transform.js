@@ -5,29 +5,32 @@ function transform(template, chunks) {
         const { hash, files, names } = chunk;
 
         for (let file of files) {
-            const extension = file.split('.').slice(-1).join('');
-            
-            const fileName = file
-                .split(hash)
-                .join('')
-                .split('.')
-                .slice(0, -1)
-                .join('')
-                .replace(/[^a-z0-9_$]/gi, '');
+            const lastSlash = file.lastIndexOf('/')+1
+                , lastDot = file.lastIndexOf('.')
+                , extension = file.substring( lastDot + 1)
+                , folder =  file.substring(0, lastSlash);
 
-            let regex = null;
+            const fileName = file
+                .substring(0, lastDot ) // remove extension
+                .substring(lastSlash) // remove folder if exist
+                .replace(`.${hash}`,'')
+                .replace(hash,'')
+            ;
+
+            let extRef = null;
             switch (extension) {
                 case 'js': {
-                    regex = new RegExp(`(src=["'].*)(${fileName}\\.js)(["'])`, 'i');
+                    extRef= "src";
                     break;
                 }
                 case 'css': {
-                    regex = new RegExp(`(href=["'].*)(${fileName}\\.css)(["'])`, 'i');
+                    extRef = "href";
                     break;
                 }
                 default:
                     continue;
             }
+            let regex = new RegExp(`(${extRef}=["'].*)(${folder}${fileName}\\.${extension})(["'])`, 'i');
 
             htmlOutput = htmlOutput.replace(regex, `$1${file}$3`);
         }

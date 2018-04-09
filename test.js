@@ -11,6 +11,24 @@ describe('ChunkHashReplacePlugin', () => {
         assert.equal(transform(html, chunks), `<script src="${appFile}"></script>`);
     });
 
+    it('should transform single js bundle with name and folder', function () {
+        const appBundle = 'scripts/app';
+        const appHash = '11111';
+        const appFile = `${appBundle}.${appHash}.js`;
+        const chunks = [{ files: [appFile], hash: appHash }]
+        const html = `<script src="${appBundle}.js"></script>`;
+        assert.equal(transform(html, chunks), `<script src="${appFile}"></script>`);
+    });
+
+    it('should transform single js bundle with name with dot', function () {
+        const appBundle = 'app.bundle';
+        const appHash = '11111';
+        const appFile = `${appBundle}.${appHash}.js`;
+        const chunks = [{ files: [appFile], hash: appHash }]
+        const html = `<script src="${appBundle}.js"></script>`;
+        assert.equal(transform(html, chunks), `<script src="${appFile}"></script>`);
+    });
+
     it('should transform multiple js bundles', function () {
         const appBundle = 'app';
         const appHash = '11111';
